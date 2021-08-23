@@ -1,0 +1,11 @@
+{
+  "lang": "English",
+  "Search for": "Search for :name",
+  "name": ":name name",
+  "Create": "Add :name",
+  "Choose": "Choose :name",
+  "Confirm": "Confirm :action ?",
+  "created successfully": ":name created successfully",
+  "updated successfully": ":name updated successfully",
+  "deleted successfully": ":name deleted successfully"
+}

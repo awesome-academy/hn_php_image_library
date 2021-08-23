@@ -1,0 +1,22 @@
+{
+  "name": "laravel_quicktask",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Đức Quang <mai.duc.quang@sun-asterisk.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/maiducquang/laravel_quicktask",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "https://github.com/almasaeed2010/AdminLTE.git#^3.1.0",
+    "ionicons": "^5.5.3",
+    "ckeditor": "^4.16.2"
+  }
+}
