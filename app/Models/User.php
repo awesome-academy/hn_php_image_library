@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'is_active',
+        'intro',
         'password',
     ];
 
@@ -41,4 +43,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
+
+    public function shares()
+    {
+        return $this->hasManyThrough(Image::class, 'user_share', 'image_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'user_id', 'id');
+    }
+
+    public function likes()
+    {
+        return $this->hasManyThrough(Image::class, 'user_like', 'image_id');
+    }
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'user_id', 'id');
+    }
 }
