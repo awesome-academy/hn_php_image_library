@@ -1,0 +1,24 @@
+{
+  "name": "test",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Mai Đức Quang <mai.duc.quang@sun-asterisk.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/maiducquang/hn_php_image_library",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "https://github.com/almasaeed2010/AdminLTE.git#^3.1.0",
+    "ionicons": "^5.5.3",
+    "ckeditor": "^4.16.2",
+    "jquery": "^3.6.0",
+    "wcave": "https://wallpapercave.com/js/wcave.js"
+  }
+}

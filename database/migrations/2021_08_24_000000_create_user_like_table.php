@@ -18,8 +18,6 @@ class CreateUserLikeTable extends Migration
                 ->cascadeOnDelete();
             $table->foreignId('user_id')->references('id')->on('users')
                 ->cascadeOnDelete();
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

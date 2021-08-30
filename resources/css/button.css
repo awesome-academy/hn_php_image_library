@@ -1,0 +1,17 @@
+.qc-cmp-button.qc-cmp-secondary-button:hover {
+    background-color: #368bd6 !important;
+    border-color: transparent !important;
+}
+
+.qc-cmp-button.qc-cmp-secondary-button:hover {
+    color: #ffffff !important;
+}
+
+.qc-cmp-button.qc-cmp-secondary-button {
+    color: #368bd6 !important;
+}
+
+.qc-cmp-button.qc-cmp-secondary-button {
+    background-color: #eee !important;
+    border-color: transparent !important;
+}
