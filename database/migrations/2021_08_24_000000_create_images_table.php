@@ -25,7 +25,8 @@ class CreateImagesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->integer('like')->default(0);
-            $table->string('image_link');
+            $table->integer('download')->default(0);
+            $table->string('original_link');
             $table->string('thumb_link');
             $table->softDeletes();
             $table->timestamps();
