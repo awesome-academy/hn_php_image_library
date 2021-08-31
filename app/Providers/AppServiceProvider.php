@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer(['frontend.partial.header'], function () {
+            $categories = Category::where('parent_id', null)->get();
+            $var['categories'] = $categories;
+            view()->share($var);
+        });
     }
 }
