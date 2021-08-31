@@ -1,0 +1,79 @@
+#extradata {
+    float: left;
+    width: 440px;
+    margin: 0 10px 25px 20px;
+}
+
+#uploadbtn {
+    border: 0;
+    border-radius: 4px;
+    background-color: #ffd404;
+    padding: 10px 35px;
+    color: #21262f;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    float: right;
+    cursor: pointer;
+    display: none;
+}
+
+.dropzone {
+    width: 100%;
+    margin: 30px 0;
+}
+
+#mform #extradata input {
+    margin: 5px 0 5px 0;
+    width: 100%;
+}
+
+#mform #extradata textarea {
+    margin: 5px 0 5px 0;
+    width: 100%;
+}
+
+#mform #extradata p {
+    margin: 0px 0 5px 5px;
+    color: white;
+}
+
+#mform p {
+    color: #aaa;
+    margin: 0 0 20px 0;
+}
+
+#mform .dropzone .dz-preview .dz-remove {
+    font-size: 90%;
+    margin: 0;
+    font-size: 12px;
+    text-align: right;
+    cursor: pointer;
+    position: absolute;
+    border: none;
+    color: #aaaaaa;
+    right: 30px;
+    z-index: 10000;
+}
+
+.dz-details {
+    display: none;
+}
+
+#uploadimg {
+    margin-top: 15px !important;
+}
+
+#done_btn {
+    background: #18a418 !important;
+}
+
+.dz-select {
+    width: 100%;
+    margin: 5px 0 5px 0;
+    background: #191c22;
+    border: 1px #191c22 solid;
+    padding: 12px;
+    font-size: 12px;
+    color: #8e8e8e
+}
