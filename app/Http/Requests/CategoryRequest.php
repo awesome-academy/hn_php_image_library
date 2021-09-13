@@ -24,22 +24,12 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->isMethod('put')) {
-            return [
-                'name' => [
-                    'required',
-                    'max:20',
-                    Rule::unique('categories')->ignore($this->name, 'name'),
-                ],
-            ];
-        } else {
-            return [
-                'name' => [
-                    'required',
-                    'max:20',
-                    Rule::unique('categories'),
-                ],
-            ];
-        }
+        return [
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('categories'),
+            ],
+        ];
     }
 }

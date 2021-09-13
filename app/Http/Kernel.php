@@ -55,7 +55,6 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'locale' => \App\Http\Middleware\Locale::class,
         'role' => \App\Http\Middleware\Role::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -65,5 +64,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'categories' => \App\Http\Middleware\AuthenticateCategory::class,
+        'subcategories' => \App\Http\Middleware\AuthenticateSubcategory::class,
+        'images' => \App\Http\Middleware\AuthenticateImage::class,
+        'roles' => \App\Http\Middleware\AuthenticateRole::class,
+        'users' => \App\Http\Middleware\AuthenticateUser::class,
+        'permissions' => \App\Http\Middleware\AuthenticatePermission::class,
     ];
 }

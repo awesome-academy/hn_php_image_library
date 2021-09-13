@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Helpers\DataHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\FollowRepositoryInterface;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -27,16 +27,9 @@ class ProfileController extends Controller
         return view('frontend.delete');
     }
 
-    public function update(ProfileRequest $request)
+    public function update(UserRepositoryInterface $userRepository, ProfileRequest $request)
     {
-        $user = Auth::user();
-        $user->update($request->all());
-        if ($request->hasFile('filepload')) {
-            $avatar = DataHelper::getAsset($request, 'avatar');
-            $user->update([
-                'avatar' => $avatar,
-            ]);
-        }
+        $userRepository->update(Auth::user(), $request);
 
         return redirect()->back();
     }
