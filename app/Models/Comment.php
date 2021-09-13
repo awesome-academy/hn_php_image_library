@@ -20,7 +20,7 @@ class Comment extends Model
 
     public function image()
     {
-        return $this->belongsTo(Image::class, 'id', 'image_id');
+        return $this->belongsTo(Image::class, 'image_id', 'id');
     }
 
     public function user()

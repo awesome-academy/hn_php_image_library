@@ -12,7 +12,7 @@ class CommentRepository implements CommentRepositoryInterface
         return Comment::where('image_id', $image_id)
             ->with('user')
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->paginate(config('project.comment_count'));
     }
 
     public function create($request, $image_id, $user)

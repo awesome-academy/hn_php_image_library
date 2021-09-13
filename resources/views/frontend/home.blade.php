@@ -4,7 +4,8 @@
         <div id="intro">
             <h1>{{ __('home_welcome') }}</h1>
             <form method="get" action="{{ route('home.search') }}" id="hsearch">
-                <input type="text" placeholder="Search wallpapers..." id="q" name="q">
+                <input type="text" placeholder="{{ ucfirst(__('searchfor', ['name' => __('images')])) }}..." id="q"
+                    name="q">
                 <input type="submit" id="hsubmitsearch" value="{{ ucfirst(__('search')) }}">
             </form>
         </div>
@@ -14,8 +15,7 @@
         <p id="featuredsearches">
             @if (count($subcategories) > 0)
                 @foreach ($subcategories as $value)
-                    <a href="{{ route('home.search', ['subcate' => $value['id']]) }}">{{ $value['name'] }}</a>
-                    &nbsp;&nbsp;
+                    <a href="{{ route('home.subcategory', ['slug' => $value['parent']['slug']]) }}">{{ $value['name'] }}</a>&nbsp;&nbsp;
                 @endforeach
             @endif
         </p>
@@ -58,7 +58,6 @@
                             onerror="this.src= '{{ asset('img/no-image.png') }}'" alt="{{ $value['name'] }}">
                     </a>
                 @endforeach
-
             </div>
             <p class="viewall"><a
                     href="{{ route('home.viewall', ['type' => 'most-like']) }}">{{ ucfirst(__('viewmore', ['name' => __('images')])) }}&nbsp;»</a>

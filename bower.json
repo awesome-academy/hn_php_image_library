@@ -1,24 +1,27 @@
 {
-  "name": "test",
-  "description": "",
-  "main": "",
-  "authors": [
-    "Mai Đức Quang <mai.duc.quang@sun-asterisk.com>"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/maiducquang/hn_php_image_library",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "AdminLTE": "https://github.com/almasaeed2010/AdminLTE.git#^3.1.0",
-    "ionicons": "^5.5.3",
-    "ckeditor": "^4.16.2",
-    "jquery": "^3.6.0",
-    "wcave": "https://wallpapercave.com/js/wcave.js"
-  }
+    "name": "test",
+    "description": "",
+    "main": "",
+    "authors": [
+        "Mai Đức Quang <mai.duc.quang@sun-asterisk.com>"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/maiducquang/hn_php_image_library",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "AdminLTE": "https://github.com/almasaeed2010/AdminLTE.git#^3.1.0",
+        "ionicons": "^5.5.3",
+        "ckeditor": "^4.16.2",
+        "jquery": "^3.6.0",
+        "wcave": "https://wallpapercave.com/js/wcave.js",
+        "dropzone": "https://wallpapercave.com/dropzone.css?v=213",
+        "select2-css": "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css",
+        "select2-js": "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"
+    }
 }

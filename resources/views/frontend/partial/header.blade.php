@@ -35,7 +35,8 @@
                                 height="22">{{ Auth::user()->name }}</span>
                     </a>
                 </li>
-                <li id="upload"><a href="{{ route('profile.upload') }}">{{ ucfirst(__('upload')) }}</a></li>
+                <li id="upload"><a
+                        href="{{ route('profile.upload') }}">{{ ucfirst(__('upload', ['name' => ''])) }}</a></li>
             @else
                 <li id="signup"><a
                         href="{{ route('register') }}">{{ ucfirst(__('create', ['name' => __('account')])) }}</a>
