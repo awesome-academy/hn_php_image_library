@@ -31,7 +31,6 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             data: {
-                'api_token': $('#api_token').val(),
                 'id': _this.val(),
             },
             url: $('#api_subcategory').val(),

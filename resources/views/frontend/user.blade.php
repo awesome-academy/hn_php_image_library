@@ -12,7 +12,8 @@
                     @if (Auth::check())
                         @if (Auth::user()->getAuthIdentifier() == $user['id'])
                             <a id="editprofile"
-                                href="{{ route('profile.edit') }}">{{ ucfirst(__('edit', ['name' => __('profile')])) }} </a>
+                                href="{{ route('profile.edit') }}">{{ ucfirst(__('edit', ['name' => __('profile')])) }}
+                            </a>
                         @else
                             <a id="followprofile" class="@if ($followed) followedprofile @else followprofile @endif" href="#"
                                 src="{{ route('profile.follow', ['id' => $user['id']]) }}" title="Unfollow">
@@ -42,7 +43,7 @@
             <div class="wp-grid">
                 @if (Auth::check() && Auth::user()->getAuthIdentifier() == $user['id'])
                     <div class="uploaded bg-upload">
-                        <a href="{{ route('profile.upload') }}">+<br><span>{{ ucfirst(__('upload')) }}</span>
+                        <a href="{{ route('profile.upload') }}">+<br><span>{{ ucfirst(__('upload', ['name' => ''])) }}</span>
                         </a>
                     </div>
                 @endif
