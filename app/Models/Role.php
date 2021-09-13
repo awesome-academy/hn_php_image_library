@@ -17,11 +17,11 @@ class Role extends Model
 
     public function permissions()
     {
-        return $this->hasManyThrough(Permission::class, 'role_permission', 'role_id');
+        return $this->belongsToMany(Permission::class, 'role_permission', 'role_id', 'permission_id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'role_id', 'id');
+        return $this->hasMany(User::class, 'role_id', 'id');
     }
 }
