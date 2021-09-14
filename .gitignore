@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 .env
+.env.dusk
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
@@ -20,3 +21,5 @@ yarn-error.log
 /public/images/
 /public/img/
 /public/avt/
+/public/coverage/
+/public/mix-manifest.json

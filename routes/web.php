@@ -43,7 +43,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/delete', [ProfileController::class, 'delete'])->name('profile.delete');
         Route::get('/favorites', [ProfileController::class, 'favorites'])->name('profile.favorites');
         Route::get('/upload', [ProfileController::class, 'upload'])->name('profile.upload');
-        Route::get('/follow-user', [ProfileController::class, 'listFollow'])->name('profile.listFollow');
         Route::post('/upload-image', [PageController::class, 'saveUpload'])->name('image.upload');
     });
     Route::middleware(['role'])->prefix('admin')->group(function () {

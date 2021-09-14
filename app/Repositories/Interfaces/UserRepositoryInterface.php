@@ -6,6 +6,8 @@ interface UserRepositoryInterface
 {
     public function getUser($id);
 
+    public function delete($id);
+
     public function getSearch($query);
 
     public function adminCreate($request);

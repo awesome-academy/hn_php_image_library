@@ -19,7 +19,7 @@ class PageController extends Controller
 
     public function saveUpload(ImageRepositoryInterface $imageRepository, ImageRequest $request)
     {
-        $user_id = Auth::user()->getAuthIdentifier();
+        $user_id = Auth::id();
         $imageRepository->saveUpload($request, $user_id);
 
         return redirect()->route('home.user', ['id' => $user_id]);
@@ -27,7 +27,7 @@ class PageController extends Controller
 
     public function editImage(CategoryRepositoryInterface $categoryRepository, Image $image)
     {
-        if ($image['user_id'] != Auth::user()->getAuthIdentifier()) {
+        if ($image['user_id'] != Auth::id()) {
             abort(404);
         }
         $categories = $categoryRepository->getAllCategory();
@@ -51,6 +51,6 @@ class PageController extends Controller
     {
         $image->delete();
 
-        return redirect()->route('home.user', ['id' => Auth::user()->getAuthIdentifier()]);
+        return redirect()->route('home.user', ['id' => Auth::id()]);
     }
 }
