@@ -15,6 +15,11 @@ class UserRepository implements UserRepositoryInterface
         return User::findOrFail($id);
     }
 
+    public function delete($id)
+    {
+        return User::findOrFail($id)->delete();
+    }
+
     public function getSearch($query)
     {
         return User::where('name', 'LIKE', '%' . $query . '%')
