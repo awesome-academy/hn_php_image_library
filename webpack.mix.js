@@ -6,12 +6,24 @@ const mix = require('laravel-mix');
  |--------------------------------------------------------------------------
  |
  | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
+ | for your Laravel application. By default, we are compiling the Sass
  | file for the application as well as bundling up all the JS files.
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.copy('resources/js/profile.js', 'public/js')
+    .copy('resources/js/image.js', 'public/js')
+    .copy('resources/js/user.js', 'public/js')
+    .copy('resources/js/upload.js', 'public/js')
+    .copy('resources/js/admin.js', 'public/js')
+    .copy('resources/js/header.js', 'public/js')
+    .copy('resources/js/search.js', 'public/js')
+    .copy('resources/js/edit.js', 'public/js')
+    .copy('resources/js/modal.js', 'public/js')
+    .copy('resources/js/navbar.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css')
+    .css('resources/css/style.css', 'public/css')
+    .css('resources/css/button.css', 'public/css')
+    .css('resources/css/upload.css', 'public/css')
+    .css('resources/css/admin.css', 'public/css')
+    .vue();

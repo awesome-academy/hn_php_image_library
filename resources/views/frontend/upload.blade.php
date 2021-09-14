@@ -3,10 +3,9 @@
     <div id="web">
         <link rel="stylesheet" href="{{ asset('bower_components/dropzone/index.css') }}">
         <link rel="stylesheet" href="{{ asset('css/upload.css') }}">
-
         <div class="other">
             <div id="subheader">
-                <h1>{{ ucfirst(__('upload_name', ['name' => __('images')])) }}</h1>
+                <h1>{{ ucfirst(__('upload', ['name' => __('images')])) }}</h1>
             </div>
             <div id="mform">
                 <form action="{{ route('image.upload') }}" method="post" enctype="multipart/form-data">
@@ -19,7 +18,6 @@
                         <li>{{ __('upload_rule3') }}</li>
                     </ul>
                     <input type="file" id="filepload" name="filepload" accept="image/*" class="hidden">
-                    <input type="hidden" value="{{ Auth::user()->api_token }}" name="api_token" id="api_token">
                     @if ($errors->any())
                         <div class="alert text-red text-bold">
                             @foreach ($errors->all() as $error){{ $error }}
@@ -50,7 +48,8 @@
                         </div>
                     </div>
                     <br class="clear">
-                    <span id="addimgbtn" class="dz-clickable">{{ ucfirst(__('select', ['name' => __('images')])) }}</span>
+                    <span id="addimgbtn"
+                        class="dz-clickable">{{ ucfirst(__('select', ['name' => __('images')])) }}</span>
                     <input id="done_btn" class="hidden" type="submit" value="{{ __('done') }}" />
                 </form>
                 <br class="clear">

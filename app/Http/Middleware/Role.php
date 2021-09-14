@@ -9,7 +9,7 @@ class Role
 {
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->role) {
+        if (Auth::user()->role_id == 0) {
             abort(403);
         }
 

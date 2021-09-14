@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +24,18 @@ class User extends Authenticatable
         'bio',
         'avatar',
         'password',
+        'role_id',
+        'is_active',
+        'api_token',
+    ];
+
+    protected $attributes = [
+        'role_id' => 0,
+        'is_active' => 1,
     ];
 
     protected $dates = ['deleted_at'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -44,31 +53,18 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'id' => 'int',
+        'deleted_at' => 'datetime',
     ];
 
     public function role()
     {
-        return $this->hasOne(Role::class, 'id', 'role_id');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'user_id', 'id');
-    }
-
-    public function shares()
-    {
-        return $this->hasManyThrough(Image::class, 'user_share', 'image_id');
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
     public function images()
     {
         return $this->hasMany(Image::class, 'user_id', 'id');
-    }
-
-    public function likes()
-    {
-        return $this->hasManyThrough(Image::class, 'user_like', 'image_id');
     }
 
     public function follows()
