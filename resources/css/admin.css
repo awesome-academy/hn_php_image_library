@@ -1,0 +1,21 @@
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    max-inline-size: 200px
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.img-mw {
+    max-width: 150px;
+}
+
+.avt {
+    width: 100px;
+    max-width: 100px;
+}
