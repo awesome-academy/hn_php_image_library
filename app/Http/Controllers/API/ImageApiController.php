@@ -11,41 +11,44 @@ use Illuminate\Support\Facades\Auth;
 
 class ImageApiController extends Controller
 {
-    protected $repository;
+    protected $imageRepository;
 
-    public function __construct(ImageRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
+    protected $commentRepository;
+
+    public function __construct(
+        ImageRepositoryInterface $imageRepository,
+        CommentRepositoryInterface $commentRepository
+    ) {
+        $this->imageRepository = $imageRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     public function updateLike(Request $request)
     {
-        $like = $this->repository->updateLike($request, Auth::user()->getAuthIdentifier());
+        $like = $this->imageRepository->updateLike($request, Auth::user()->getAuthIdentifier());
 
         return response($like, 200);
     }
 
     public function updateShare(Request $request)
     {
-        $share = $this->repository->updateShare($request, Auth::user()->getAuthIdentifier());
+        $share = $this->imageRepository->updateShare($request, Auth::user()->getAuthIdentifier());
 
         return response($share, 200);
     }
 
-    public function homeSearch(ImageRepositoryInterface $imageRepository, Request $request)
+    public function homeSearch(Request $request)
     {
-        $images = $imageRepository->getSearch($request);
+        $images = $this->imageRepository->getSearch($request);
 
         return view('response.home_search', [
             'images' => $images,
         ]);
     }
 
-    public function comment(
-        CommentRepositoryInterface $commentRepository,
-        CommentRequest $request
-    ) {
-        $comment = $commentRepository->create($request, $request['image_id'], Auth::user());
+    public function comment(CommentRequest $request)
+    {
+        $comment = $this->commentRepository->create($request, $request['image_id'], Auth::user());
 
         return view('response.comment', ['comment' => $comment]);
     }

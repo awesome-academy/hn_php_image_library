@@ -13,17 +13,38 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index(
+    protected $categoryRepository;
+
+    protected $imageRepository;
+
+    protected $followRepository;
+
+    protected $commentRepository;
+
+    protected $userRepository;
+
+    public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         ImageRepositoryInterface $imageRepository,
-        FollowRepositoryInterface $followRepository
+        FollowRepositoryInterface $followRepository,
+        CommentRepositoryInterface $commentRepository,
+        UserRepositoryInterface $userRepository
     ) {
-        $subcategories = $categoryRepository->getAllSubcategory();
-        $like_images = $imageRepository->getMostLikeImage();
-        $download_images = $imageRepository->getMostDownloadImage();
+        $this->categoryRepository = $categoryRepository;
+        $this->imageRepository = $imageRepository;
+        $this->followRepository = $followRepository;
+        $this->commentRepository = $commentRepository;
+        $this->userRepository = $userRepository;
+    }
+
+    public function index()
+    {
+        $subcategories = $this->categoryRepository->getAllSubcategory();
+        $like_images = $this->imageRepository->getMostLikeImage();
+        $download_images = $this->imageRepository->getMostDownloadImage();
         $follow_users = [];
         if (Auth::check()) {
-            $follow_users = $followRepository->getUserFollow(Auth::user()->getAuthIdentifier());
+            $follow_users = $this->followRepository->getUserFollow(Auth::id());
         }
 
         return view('frontend.home', [
@@ -34,36 +55,36 @@ class HomeController extends Controller
         ]);
     }
 
-    public function category(CategoryRepositoryInterface $categoryRepository)
+    public function category()
     {
-        $categories = $categoryRepository->getAllCategory();
+        $categories = $this->categoryRepository->getAllCategory();
 
         return view('frontend.category', ['categories' => $categories]);
     }
 
-    public function subcategory(Request $request, CategoryRepositoryInterface $categoryRepository)
+    public function subcategory(Request $request)
     {
-        $data = $categoryRepository->getImageBySubcategory($request['slug']);
+        $data = $this->categoryRepository->getImageBySubcategory($request['slug']);
 
         return view('frontend.subcategory', [
-            'category' => $data['category'],
-            'subcategories' => $data['subcategories'],
+            'category' => $data['category'] ?? [],
+            'subcategories' => $data['subcategories'] ?? [],
         ]);
     }
 
-    public function image(
-        ImageRepositoryInterface $imageRepository,
-        CommentRepositoryInterface $commentRepository,
-        Request $request
-    ) {
-        $image = $imageRepository->getImage($request['slug']);
-        $comments = $commentRepository->getComment($image['id']);
-        $related_images = $imageRepository->getRelatedImage($image['id'], $image['user_id']);
+    public function image(Request $request)
+    {
+        $image = $this->imageRepository->getImage($request['slug']);
+        $comments = $this->commentRepository->getComment($image['id'] ?? null);
+        $related_images = $this->imageRepository->getRelatedImage(
+            $image['id'] ?? null,
+            $image['user_id'] ?? null
+        );
         $liked = false;
         $addtofavorite = false;
         if (Auth::check()) {
-            $liked = $imageRepository->checkLiked($image, Auth::user()->getAuthIdentifier());
-            $addtofavorite = $imageRepository->checkShared($image, Auth::user()->getAuthIdentifier());
+            $liked = $this->imageRepository->checkLiked($image, Auth::id());
+            $addtofavorite = $this->imageRepository->checkShared($image, Auth::id());
         }
 
         return view('frontend.image', [
@@ -75,40 +96,30 @@ class HomeController extends Controller
         ]);
     }
 
-    public function download(ImageRepositoryInterface $imageRepository, Request $request)
+    public function download(Request $request)
     {
-        $image = $imageRepository->getImage($request['slug']);
-        if (!$image) {
-            return redirect()->back();
-        }
-        $imageRepository->updateDownload($image);
-        $filename = $image['name'];
-        $tempImage = tempnam(sys_get_temp_dir(), $filename);
-        copy(asset($image['original_link']), $tempImage);
 
-        return response()->download($tempImage, $filename);
+        $image = $this->imageRepository->getImage($request['slug']);
+
+        return $this->imageRepository->download($image);
     }
 
-    public function search(ImageRepositoryInterface $imageRepository, Request $request)
+    public function search(Request $request)
     {
-        $images = $imageRepository->getSearch($request);
+        $images = $this->imageRepository->getSearch($request);
 
         return view('frontend.search', [
             'images' => $images,
         ]);
     }
 
-    public function user(
-        ImageRepositoryInterface $imageRepository,
-        UserRepositoryInterface $userRepository,
-        FollowRepositoryInterface $followRepository,
-        Request $request
-    ) {
-        $user = $userRepository->getUser($request['id']);
-        $images = $imageRepository->getImageByUser($user['id']);
+    public function user(Request $request)
+    {
+        $user = $this->userRepository->getUser($request['id']);
+        $images = $this->imageRepository->getImageByUser($user['id'] ?? null);
         $followed = false;
         if (Auth::check()) {
-            $followed = $followRepository->checkFollowed(Auth::user()->getAuthIdentifier(), $user['id']);
+            $followed = $this->followRepository->checkFollowed(Auth::id(), $user['id'] ?? null);
         }
 
         return view('frontend.user', [
@@ -118,27 +129,23 @@ class HomeController extends Controller
         ]);
     }
 
-    public function viewall(
-        ImageRepositoryInterface $imageRepository,
-        FollowRepositoryInterface $followRepository,
-        Request $request
-    ) {
+    public function viewall(Request $request)
+    {
         $type = $request['type'];
         $follow_users = [];
         $images = [];
         switch ($type) {
             case 'followed-user':
                 if (Auth::check()) {
-                    $user_id = Auth::user()->getAuthIdentifier();
                     $user_count = config('project.home_user_count');
-                    $follow_users = $followRepository->getUserFollowPaginate($user_id, $user_count);
+                    $follow_users = $this->followRepository->getUserFollowPaginate(Auth::id(), $user_count);
                 }
                 break;
             case 'most-download':
-                $images = $imageRepository->getMostDownloadImagePaginate(config('project.search_image_count'));
+                $images = $this->imageRepository->getMostDownloadImagePaginate(config('project.search_image_count'));
                 break;
             case 'most-like':
-                $images = $imageRepository->getMostLikeImagePaginate(config('project.search_image_count'));
+                $images = $this->imageRepository->getMostLikeImagePaginate(config('project.search_image_count'));
                 break;
             default:
                 break;

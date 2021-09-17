@@ -83,9 +83,15 @@ class ImageRepository implements ImageRepositoryInterface
         return $image->shares()->where('id', $user_id)->exists();
     }
 
-    public function updateDownload($image)
+    public function download($image)
     {
-        return $image->update(['download' => $image->download + 1]);
+
+        $image->update(['download' => $image->download + 1]);
+        $filename = $image['name'];
+        $tempImage = tempnam(sys_get_temp_dir(), $filename);
+        copy(asset($image['original_link']), $tempImage);
+
+        return response()->download($tempImage, $filename);
     }
 
     public function getSearch($request)
