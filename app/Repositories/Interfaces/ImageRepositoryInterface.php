@@ -12,7 +12,7 @@ interface ImageRepositoryInterface
 
     public function updateShare($request, $user_id);
 
-    public function updateDownload($image);
+    public function download($image);
 
     public function getMostLikeImage();
 

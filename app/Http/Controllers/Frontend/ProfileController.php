@@ -11,9 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function __construct()
-    {
+    protected $categoryRepository;
+
+    protected $imageRepository;
+
+    protected $userRepository;
+
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        ImageRepositoryInterface $imageRepository,
+        UserRepositoryInterface $userRepository
+    ) {
         $this->middleware('auth');
+        $this->categoryRepository = $categoryRepository;
+        $this->imageRepository = $imageRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function edit()
@@ -26,32 +38,32 @@ class ProfileController extends Controller
         return view('frontend.delete');
     }
 
-    public function destroy(UserRepositoryInterface $userRepository)
+    public function destroy()
     {
-        $userRepository->delete(Auth::id());
+        $this->userRepository->delete(Auth::id());
 
         return redirect()->route('home');
     }
 
-    public function update(UserRepositoryInterface $userRepository, ProfileRequest $request)
+    public function update(ProfileRequest $request)
     {
-        $userRepository->update(Auth::user(), $request);
+        $this->userRepository->update(Auth::user(), $request);
 
         return redirect()->route('profile.edit');
     }
 
-    public function favorites(ImageRepositoryInterface $imageRepository)
+    public function favorites()
     {
-        $images = $imageRepository->getImageFavorite(Auth::id());
+        $images = $this->imageRepository->getImageFavorite(Auth::id());
 
         return view('frontend.favorites', [
             'images' => $images,
         ]);
     }
 
-    public function upload(CategoryRepositoryInterface $categoryRepository)
+    public function upload()
     {
-        $categories = $categoryRepository->getAllCategory();
+        $categories = $this->categoryRepository->getAllCategory();
 
         return view('frontend.upload', [
             'categories' => $categories,

@@ -26,4 +26,5 @@ mix.copy('resources/js/profile.js', 'public/js')
     .css('resources/css/button.css', 'public/css')
     .css('resources/css/upload.css', 'public/css')
     .css('resources/css/admin.css', 'public/css')
+    .css('resources/css/error.css', 'public/css')
     .vue();

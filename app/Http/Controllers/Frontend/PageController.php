@@ -12,26 +12,34 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
-    public function __construct()
-    {
+    protected $categoryRepository;
+
+    protected $imageRepository;
+
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        ImageRepositoryInterface $imageRepository
+    ) {
         $this->middleware('auth');
+        $this->categoryRepository = $categoryRepository;
+        $this->imageRepository = $imageRepository;
     }
 
-    public function saveUpload(ImageRepositoryInterface $imageRepository, ImageRequest $request)
+    public function saveUpload(ImageRequest $request)
     {
         $user_id = Auth::id();
-        $imageRepository->saveUpload($request, $user_id);
+        $this->imageRepository->saveUpload($request, $user_id);
 
         return redirect()->route('home.user', ['id' => $user_id]);
     }
 
-    public function editImage(CategoryRepositoryInterface $categoryRepository, Image $image)
+    public function editImage(Image $image)
     {
         if ($image['user_id'] != Auth::id()) {
-            abort(404);
+            return response()->view('errors.404', [], 404);
         }
-        $categories = $categoryRepository->getAllCategory();
-        $subcategories = $categoryRepository->getAllSubcategory();
+        $categories = $this->categoryRepository->getAllCategory();
+        $subcategories = $this->categoryRepository->getAllSubcategory();
 
         return view('frontend.edit', [
             'image' => $image,
@@ -44,7 +52,7 @@ class PageController extends Controller
     {
         $image->update($request->all());
 
-        return redirect()->back();
+        return redirect()->route('home.user', ['id' => Auth::id()]);
     }
 
     public function deleteImage(Image $image)
