@@ -28,14 +28,14 @@
                 </div>
                 <div class="p-2 w-50">
                     <a role="button" class="btn btn-primary float-right"
-                       href="{{ route('users.create') }}">{{ __('create', ['name' => __('user')]) }}</a>
+                       href="{{ route('users.create') }}">{{ ucfirst(__('create', ['name' => __('user')])) }}</a>
                 </div>
             </div>
             @isset($users)
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            <h3 class="card-title">{{ __('user') }}</h3>
+                            <h3 class="card-title">{{ ucfirst(__('user')) }}</h3>
                         </div>
                         <div class="card-tools">
                             <form action="{{ route('users.index') }}" method="get"

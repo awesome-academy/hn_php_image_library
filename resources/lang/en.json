@@ -24,5 +24,6 @@
     "delete_success": ":name deleted successfully",
     "password_confirmation": "confirm password",
     "new_password_confirmation": "confirm new password",
-    "shareon": "share on :name"
+    "shareon": "share on :name",
+    "chart": ":name chart"
 }

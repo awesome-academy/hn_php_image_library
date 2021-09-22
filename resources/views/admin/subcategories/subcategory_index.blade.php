@@ -28,14 +28,14 @@
                 </div>
                 <div class="p-2 w-50">
                     <a role="button" class="btn btn-primary float-right"
-                       href="{{ route('subcategories.create') }}">{{ __('create', ['name' => __('subcategory')]) }}</a>
+                       href="{{ route('subcategories.create') }}">{{ ucfirst(__('create', ['name' => __('subcategory')])) }}</a>
                 </div>
             </div>
             @isset($categories)
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            <h3 class="card-title">{{ __('subcategories') }}</h3>
+                            <h3 class="card-title">{{ ucfirst(__('subcategories')) }}</h3>
                         </div>
                         <div class="card-tools">
                             <form action="{{ route('subcategories.index') }}" method="get"
@@ -113,7 +113,6 @@
                                         <td class="text-truncate">{{ $value['description'] }}</td>
                                     </tr>
                                 @endforeach
-
                                 </tbody>
                             </table>
                         </div>

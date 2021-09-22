@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Helpers\DataHelper;
 use App\Models\Image;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class ImageRepository implements ImageRepositoryInterface
 {
@@ -160,5 +161,23 @@ class ImageRepository implements ImageRepositoryInterface
         return Image::orderBy('download', 'DESC')
             ->orderBy('updated_at', 'DESC')
             ->paginate($paginate);
+    }
+
+    public function getUploadImageChart()
+    {
+        $images = Image::select(DB::raw('DATE(created_at) AS date'), DB::raw('COUNT(*) AS count'))
+            ->where('created_at', '>=', now()->subDays(config('project.chart_date_ago')))
+            ->groupBy('created_at')
+            ->orderBy('created_at')
+            ->get(config('project.chart_image_count'));
+
+        foreach ($images as $i => $value) {
+            $data['labels'][$i] = $value['date'];
+            $data['images'][$i] = $value['count'];
+        }
+
+        $data['description'] = __('upload', ['name' => __('image')]);
+
+        return response($data, 200);
     }
 }

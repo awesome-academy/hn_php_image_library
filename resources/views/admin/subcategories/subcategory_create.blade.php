@@ -2,7 +2,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">{{ __('create', ['name' => __('subcategory')]) }}</h3>
+            <h3 class="card-title">{{ ucfirst(__('create', ['name' => __('subcategory')])) }}</h3>
         </div>
         @if ($errors->any())
             <div class="alert text-red text-bold">

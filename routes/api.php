@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AdminApiController;
 use App\Http\Controllers\API\CategoryApiController;
 use App\Http\Controllers\API\FollowApiController;
 use App\Http\Controllers\API\ImageApiController;
@@ -29,6 +30,9 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::prefix('user/{id}')->group(function () {
         Route::post('/follow', [FollowApiController::class, 'updateFollow'])->name('profile.follow');
+    });
+    Route::prefix('admin')->group(function () {
+        Route::post('/chart', [AdminApiController::class, 'getUploadImageChart'])->name('admin.uploadImageChart');
     });
 });
 

@@ -30,7 +30,7 @@
             @isset($images)
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{ __('images') }}</h3>
+                        <h3 class="card-title">{{ ucfirst(__('images')) }}</h3>
                         <div class="card-tools">
                             <form action="{{ route('images.index') }}" class="input-group input-group-sm w-100">
                                 <input type="search" name="search" class="form-control float-right"
@@ -113,7 +113,6 @@
                                 @endif
                             </tbody>
                         </table>
-
                     </div>
                     {{ $images->links('vendor.pagination.default') }}
                     <div class="ml-2">{{ ($images->currentPage() - 1) * 5 }}
