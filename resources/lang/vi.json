@@ -51,9 +51,9 @@
     "delete": "delete :name",
     "remember": "ghi nhớ",
     "upload_thankfor": "Cảm ơn vì đã đóng góp vào bộ sưu tập hình nền của chúng tôi!",
-    "upload_rule1": "No selfies or personal photos",
-    "upload_rule2": "No screenshots",
-    "upload_rule3": "No offensive images",
+    "upload_rule1": "Không có ảnh tự chụp hoặc ảnh cá nhân",
+    "upload_rule2": "Không có ảnh chụp màn hình",
+    "upload_rule3": "Không có hình ảnh phản cảm",
     "remove": "xoá :name",
     "select": "chọn :name",
     "done": "hoàn thành",
@@ -87,5 +87,6 @@
     "new password": "mật khẩu mới",
     "password_confirmation": "xác nhận mật khẩu",
     "new_password_confirmation": "xác nhận mật khẩu mới",
-    "or": "hoặc"
+    "or": "hoặc",
+    "chart": "biểu đồ :name"
 }

@@ -35,4 +35,6 @@ interface ImageRepositoryInterface
     public function saveUpload($request, $user_id);
 
     public function getImageFavorite($user_id);
+
+    public function getUploadImageChart();
 }
