@@ -10,12 +10,19 @@ class FollowRepository implements FollowRepositoryInterface
 {
     public function getUserFollow($user_id)
     {
-        $follow_id = self::getFollow($user_id);
+        $follow_id = self::getFollow($user_id, 'user_follow_id', 'user_id');
 
         return User::withCount('images')
             ->whereIn('id', $follow_id)
             ->limit(config('project.home_user_count'))
             ->get();
+    }
+
+    public function getFollowUser($user_id)
+    {
+        $follow_id = self::getFollow($user_id, 'user_id', 'user_follow_id');
+
+        return User::whereIn('id', $follow_id)->get();
     }
 
     public function checkFollowed($user_id, $user_follow_id)
@@ -43,10 +50,10 @@ class FollowRepository implements FollowRepositoryInterface
         return $follow;
     }
 
-    public static function getFollow($user_id)
+    public static function getFollow($user_id, $key1, $key2)
     {
-        $follows = Follow::select('user_follow_id')
-            ->where('user_id', $user_id)
+        $follows = Follow::select($key1)
+            ->where($key2, $user_id)
             ->get();
         if (count($follows) <= 0) {
             return [];
@@ -54,7 +61,7 @@ class FollowRepository implements FollowRepositoryInterface
         $follow_id = [];
 
         foreach ($follows as $i => $value) {
-            $follow_id[$i] = $value['user_follow_id'];
+            $follow_id[$i] = $value[$key1];
         }
 
         return $follow_id;
@@ -62,7 +69,7 @@ class FollowRepository implements FollowRepositoryInterface
 
     public function getUserFollowPaginate($user_id, $paginate)
     {
-        $follow_id = self::getFollow($user_id);
+        $follow_id = self::getFollow($user_id, 'user_follow_id', 'user_id');
 
         return User::withCount('images')
             ->whereIn('id', $follow_id)

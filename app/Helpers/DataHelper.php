@@ -9,7 +9,7 @@ class DataHelper
 {
     public static function getAsset($request, $key)
     {
-        $image_path = config('project.' . $key) . self::getSlug($request->file('filepload')->getClientOriginalName());
+        $image_path = config('project.' . $key) . time() . '-' . $request->file('filepload')->getClientOriginalName();
         $img = ImageProcesing::make($request->file('filepload'));
         switch ($key) {
             case 'avatar':

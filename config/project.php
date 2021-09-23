@@ -22,4 +22,5 @@ return [
     'thumb_h' => 160,
     'chart_image_count' => 20,
     'chart_date_ago' => 30,
+    'notification_count' => 20,
 ];

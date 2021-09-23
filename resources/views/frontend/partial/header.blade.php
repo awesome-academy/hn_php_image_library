@@ -35,8 +35,40 @@
                                 height="22">{{ Auth::user()->name }}</span>
                     </a>
                 </li>
-                <li id="upload"><a
-                        href="{{ route('profile.upload') }}">{{ ucfirst(__('upload', ['name' => ''])) }}</a></li>
+                <li id="notifications"><a href="#"><img src="{{ asset('img/notifications.svg') }}" width="12"><span
+                            id="notification_count"
+                            data-count="{{ auth()->user()->unreadNotifications->count() }}">{{ auth()->user()->unreadNotifications->count() }}</span></a>
+                    <div id="nbox" class="hidden">
+                        <div id="nboxc">
+                            @foreach (auth()->user()->notifications()->take(config('project.notification_count'))->get() as $notification)
+                                <div class="nitem @if (!$notification['read_at']) unread @endif">
+                                    <a href="{{ route('home.image', ['slug' => $notification->data['slug'], 'read' => $notification['id']]) }}">
+                                        <img class="av" src="{{ asset($notification->data['image']) }}"
+                                            onerror="this.src= '{{ asset('img/no-avatar.png') }}'" width="45">
+                                        <div class="txt">
+                                            <p><b>{{ ucfirst($notification->data['title']) }}</b></p>
+                                            <p>{{ $notification->data['content'] }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                                <div class="nitem">
+                                    <a>
+                                        <img class="av" src="{{asset('img/no-avatar.png')}}" width="45">
+                                        <div class="txt">
+                                            <p><b>{{ucfirst(__('admin'))}}</b></p>
+                                            <p>{{__('home_welcome')}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                        </div>
+                    </div>
+                </li>
+                <li id="upload">
+                    <a href="{{ route('profile.upload') }}">{{ ucfirst(__('upload', ['name' => ''])) }}</a></li>
+                <input type="hidden" value="{{ env('MIX_PUSHER_APP_KEY') }}" id="MIX_PUSHER_APP_KEY" />
+                <input type="hidden" value="{{ env('MIX_PUSHER_APP_CLUSTER') }}" id="MIX_PUSHER_APP_CLUSTER" />
+                <script type="module" src="{{ asset('js/pusher.js') }}"></script>
             @else
                 <li id="signup"><a
                         href="{{ route('register') }}">{{ ucfirst(__('create', ['name' => __('account')])) }}</a>
@@ -48,8 +80,7 @@
                     @if (count($categories) > 0)
                         @foreach ($categories as $value)
                             <li>
-                                <a
-                                    href="{{ route('home.subcategory', ['slug' => $value['slug']]) }}">{{ $value['name'] }}</a>
+                                <a href="{{ route('home.subcategory', ['slug' => $value['slug']]) }}">{{ $value['name'] }}</a>
                             </li>
                         @endforeach
                     @endif
