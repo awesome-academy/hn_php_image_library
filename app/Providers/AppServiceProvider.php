@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Image;
+use App\Observers\ImageObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -56,5 +58,7 @@ class AppServiceProvider extends ServiceProvider
             $var['categories'] = $categories;
             view()->share($var);
         });
+
+        Image::observe(ImageObserver::class);
     }
 }
