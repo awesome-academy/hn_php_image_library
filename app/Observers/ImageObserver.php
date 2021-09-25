@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
+use App\Jobs\NotifyUploadImage;
 use App\Models\Image;
 use App\Models\User;
-use App\Notifications\NewUploadImage;
 use App\Repositories\Interfaces\FollowRepositoryInterface;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -25,9 +25,7 @@ class ImageObserver extends Event
     public function created(Image $image)
     {
         $user = User::findOrFail($image['user_id']);
-        $following = $this->followRepository->getFollowUser($image['user_id']);
-        foreach ($following as $value) {
-            $value->notify(new NewUploadImage($user, $image));
-        }
+        $following = $this->followRepository->getFollowUserById($image['user_id']);
+        dispatch(new NotifyUploadImage($user, $following, $image));
     }
 }

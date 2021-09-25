@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Helpers\DataHelper;
 use App\Models\Image;
 use App\Repositories\Interfaces\ImageRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ImageRepository implements ImageRepositoryInterface
@@ -179,5 +180,10 @@ class ImageRepository implements ImageRepositoryInterface
         $data['description'] = __('upload', ['name' => __('image')]);
 
         return response($data, 200);
+    }
+
+    public function getUploadImageDailyCount()
+    {
+        return Image::whereDate('created_at', Carbon::today())->get()->count();
     }
 }

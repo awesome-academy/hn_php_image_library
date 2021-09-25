@@ -14,11 +14,12 @@ class FollowRepository implements FollowRepositoryInterface
 
         return User::withCount('images')
             ->whereIn('id', $follow_id)
+            ->where('is_active', config('project.is_active'))
             ->limit(config('project.home_user_count'))
             ->get();
     }
 
-    public function getFollowUser($user_id)
+    public function getFollowUserById($user_id)
     {
         $follow_id = self::getFollow($user_id, 'user_id', 'user_follow_id');
 
@@ -73,6 +74,7 @@ class FollowRepository implements FollowRepositoryInterface
 
         return User::withCount('images')
             ->whereIn('id', $follow_id)
+            ->where('is_active', config('project.is_active'))
             ->paginate($paginate);
     }
 }
