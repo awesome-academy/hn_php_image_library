@@ -37,4 +37,6 @@ interface ImageRepositoryInterface
     public function getImageFavorite($user_id);
 
     public function getUploadImageChart();
+
+    public function getUploadImageDailyCount();
 }

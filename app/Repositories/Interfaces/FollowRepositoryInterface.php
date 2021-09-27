@@ -12,5 +12,5 @@ interface FollowRepositoryInterface
 
     public function updateFollow($request, $user_id);
 
-    public function getFollowUser($user_id);
+    public function getFollowUserById($user_id);
 }

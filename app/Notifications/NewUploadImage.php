@@ -2,26 +2,24 @@
 
 namespace App\Notifications;
 
-use App\Models\Image;
-use App\Models\User;
-use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Queue\SerializesModels;
 
-class NewUploadImage extends Notification implements ShouldBroadcast
+class NewUploadImage extends Notification
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels, Queueable;
+    use Queueable;
 
     protected $followed_user;
 
+    protected $user_id;
+
     protected $image;
 
-    public function __construct(User $followed_user, Image $image)
+    public function __construct($followed_user, $user_id, $image)
     {
         $this->followed_user = $followed_user;
+        $this->user_id = $user_id;
         $this->image = $image;
     }
 
@@ -43,6 +41,6 @@ class NewUploadImage extends Notification implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return ['image-channel'];
+        return new PrivateChannel('users.' . $this->user_id);
     }
 }

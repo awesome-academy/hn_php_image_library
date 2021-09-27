@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Follow::class, 'user_id', 'id');
     }
+
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'users.' . $this->id;
+    }
 }

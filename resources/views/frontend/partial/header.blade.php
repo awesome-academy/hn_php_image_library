@@ -35,6 +35,7 @@
                                 height="22">{{ Auth::user()->name }}</span>
                     </a>
                 </li>
+                <input type="hidden" value="{{ Auth::id() }}" id="user_id"/>
                 <li id="notifications"><a href="#"><img src="{{ asset('img/notifications.svg') }}" width="12"><span
                             id="notification_count"
                             data-count="{{ auth()->user()->unreadNotifications->count() }}">{{ auth()->user()->unreadNotifications->count() }}</span></a>
@@ -66,8 +67,6 @@
                 </li>
                 <li id="upload">
                     <a href="{{ route('profile.upload') }}">{{ ucfirst(__('upload', ['name' => ''])) }}</a></li>
-                <input type="hidden" value="{{ env('MIX_PUSHER_APP_KEY') }}" id="MIX_PUSHER_APP_KEY" />
-                <input type="hidden" value="{{ env('MIX_PUSHER_APP_CLUSTER') }}" id="MIX_PUSHER_APP_CLUSTER" />
                 <script type="module" src="{{ asset('js/pusher.js') }}"></script>
             @else
                 <li id="signup"><a
