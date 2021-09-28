@@ -7,7 +7,7 @@ use App\Models\User;
 
 trait TestController
 {
-    protected function makeUser($id)
+    public static function makeUser($id)
     {
         $user = User::factory()->make();
         $user->id = $id;
@@ -15,7 +15,7 @@ trait TestController
         return $user;
     }
 
-    protected function makeImage($id, $user_id)
+    public static function makeImage($id, $user_id)
     {
         $image = Image::factory()->make();
         $image->id = $id;

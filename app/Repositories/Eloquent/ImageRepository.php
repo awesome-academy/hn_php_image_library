@@ -168,8 +168,8 @@ class ImageRepository implements ImageRepositoryInterface
     {
         $images = Image::select(DB::raw('DATE(created_at) AS date'), DB::raw('COUNT(*) AS count'))
             ->where('created_at', '>=', now()->subDays(config('project.chart_date_ago')))
-            ->groupBy('created_at')
-            ->orderBy('created_at')
+            ->groupBy('date')
+            ->orderBy('date')
             ->get(config('project.chart_image_count'));
 
         foreach ($images as $i => $value) {
