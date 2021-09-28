@@ -15,6 +15,13 @@ class UserRepository implements UserRepositoryInterface
         return User::findOrFail($id);
     }
 
+    public function getAdmin()
+    {
+        return User::whereHas('role', function ($q) {
+            $q->where('roles.name', 'admin');
+        })->first();
+    }
+
     public function delete($id)
     {
         return User::findOrFail($id)->delete();

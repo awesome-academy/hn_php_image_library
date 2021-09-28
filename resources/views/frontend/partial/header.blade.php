@@ -49,6 +49,7 @@
                                         <div class="txt">
                                             <p><b>{{ ucfirst($notification->data['title']) }}</b></p>
                                             <p>{{ $notification->data['content'] }}</p>
+                                            <p>{{ date('H:s d/m/Y', strtotime($notification['created_at'])) }}</p>
                                         </div>
                                     </a>
                                 </div>

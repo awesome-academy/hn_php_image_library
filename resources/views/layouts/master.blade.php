@@ -10,8 +10,9 @@
     <script defer="" src="{{ asset('bower_components/wcave/index.js') }}" type="text/javascript"></script>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/button.css') }}" />
-    <script defer src="{{ asset('js/header.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/header.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bower_components/pusher-js/dist/web/pusher.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </head>
 
 <body id="home">
