@@ -21,7 +21,6 @@ return [
     'image_h' => 700,
     'thumb_w' => 160,
     'thumb_h' => 160,
-    'chart_image_count' => 20,
-    'chart_date_ago' => 30,
+    'chart_date_ago' => 60,
     'notification_count' => 20,
 ];

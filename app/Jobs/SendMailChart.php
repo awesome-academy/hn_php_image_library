@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use SendGrid;
 use SendGrid\Mail\Mail;
 
 class SendMailChart implements ShouldQueue
@@ -33,9 +34,9 @@ class SendMailChart implements ShouldQueue
         $count = $imageRepository->getUploadImageDailyCount();
         $email->addContent(
             "text/html",
-            view('template.mail.uploadimagechart', ['count' => $count])->render()
+            view('mail.upload-image-chart', ['count' => $count])->render()
         );
-        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        $sendgrid = new SendGrid(getenv('SENDGRID_API_KEY'));
         $sendgrid->send($email);
     }
 }
