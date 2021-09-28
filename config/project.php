@@ -2,6 +2,7 @@
 
 return [
     'version' => 1,
+    'is_user' => 0,
     'is_active' => 1,
     'admin_page_count' => 5,
     'feature_image_count' => 18,

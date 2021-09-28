@@ -9,8 +9,10 @@ class Role
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role_id == 0) {
+        if (Auth::check() && Auth::user()->role_id == config('project.is_user')) {
             abort(403);
+        } else {
+            redirect()->route('login');
         }
 
         return $next($request);

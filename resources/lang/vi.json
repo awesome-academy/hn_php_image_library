@@ -88,5 +88,9 @@
     "password_confirmation": "xác nhận mật khẩu",
     "new_password_confirmation": "xác nhận mật khẩu mới",
     "or": "hoặc",
-    "chart": "biểu đồ :name"
+    "chart": "biểu đồ :name",
+    "new_upload_image": "đã thêm một ảnh mới",
+    "upload_image_mail_quote": "chúng tôi xin gửi bạn biểu đồ thống kê hằng ngày",
+    "upload_image_mail_subject": "biểu đồ thống kê hằng ngày",
+    "upload_image_mail_content": "hôm nay có :count tấm ảnh tải lên mới, bấm vào link để xem chi tiết: "
 }

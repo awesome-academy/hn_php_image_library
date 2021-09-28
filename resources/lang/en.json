@@ -25,5 +25,9 @@
     "password_confirmation": "confirm password",
     "new_password_confirmation": "confirm new password",
     "shareon": "share on :name",
-    "chart": ":name chart"
+    "chart": ":name chart",
+    "new_upload_image": "uploaded a new image",
+    "upload_image_mail_subject": "daily statistics chart",
+    "upload_image_mail_quote": "we would like to send you daily statistical chart",
+    "upload_image_mail_content": "today there is :count new uploaded photos, click on the link to see more details: "
 }
