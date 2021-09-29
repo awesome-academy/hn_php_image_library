@@ -23,12 +23,12 @@ class NotifyUploadImage implements ShouldQueue
 
     protected $image;
 
-    protected $following;
+    protected $follower;
 
-    public function __construct($user, $following, $image)
+    public function __construct($user, $follower, $image)
     {
         $this->user = $user;
-        $this->following = $following;
+        $this->follower = $follower;
         $this->image = $image;
     }
 
@@ -39,7 +39,7 @@ class NotifyUploadImage implements ShouldQueue
      */
     public function handle()
     {
-        foreach ($this->following as $value) {
+        foreach ($this->follower as $value) {
             $value->notify(new NewUploadImage($this->user, $value->id, $this->image));
         }
     }

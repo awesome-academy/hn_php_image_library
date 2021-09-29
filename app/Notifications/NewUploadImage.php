@@ -10,16 +10,16 @@ class NewUploadImage extends Notification
 {
     use Queueable;
 
-    protected $followed_user;
+    protected $user;
 
-    protected $user_id;
+    protected $follower_id;
 
     protected $image;
 
-    public function __construct($followed_user, $user_id, $image)
+    public function __construct($user, $follower_id, $image)
     {
-        $this->followed_user = $followed_user;
-        $this->user_id = $user_id;
+        $this->user = $user;
+        $this->follower_id = $follower_id;
         $this->image = $image;
     }
 
@@ -32,15 +32,15 @@ class NewUploadImage extends Notification
     {
         return [
             'id' => $this->id,
-            'title' => $this->followed_user->name,
+            'title' => $this->user->name,
             'content' => __('new_upload_image'),
-            'image' => $this->followed_user->avatar,
+            'image' => $this->user->avatar,
             'slug' => $this->image->slug,
         ];
     }
 
     public function broadcastOn()
     {
-        return new PrivateChannel('users.' . $this->user_id);
+        return new PrivateChannel('users.' . $this->follower_id);
     }
 }
