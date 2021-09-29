@@ -25,7 +25,7 @@ class ImageObserver extends Event
     public function created(Image $image)
     {
         $user = User::findOrFail($image['user_id']);
-        $following = $this->followRepository->getFollowUserById($image['user_id']);
-        dispatch(new NotifyUploadImage($user, $following, $image));
+        $follower = $this->followRepository->getFollowUserById($image['user_id']);
+        dispatch(new NotifyUploadImage($user, $follower, $image));
     }
 }
