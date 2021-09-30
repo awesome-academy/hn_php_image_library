@@ -2,34 +2,34 @@
 
 namespace Tests\Unit\Jobs;
 
-use SendGrid;
-use SendGrid\Mail\Mail;
+use App\Jobs\SendMailChart;
+use App\Mail\MailUploadImageChart;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class SendMailTest extends TestCase
 {
-    protected $email;
+    protected $sendMailChart;
+
+    protected $email = 'test@gmail.com';
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->email = new Mail();
+        $this->sendMailChart = new SendMailChart(
+            $this->email,
+            100
+        );
     }
 
-    public function testSendingMail()
+    public function testHandle()
     {
-        $mailFrom = "ducquang006900@gmail.com";
-        $mailTo = "ducquang171099@gmail.com";
-        $this->email->setFrom($mailFrom, "ImageLibrary");
-        $this->email->setSubject(ucfirst(__("upload_image_mail_subject")));
-        $this->email->addTo($mailTo);
-        $this->email->addContent(
-            "text/html",
-            view('mail.upload-image-chart', ['count' => 100])->render()
-        );
-        $sendgrid = new SendGrid('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');
-        $result = $sendgrid->send($this->email);
-        $this->assertEquals(202, $result->statusCode());
+        Mail::fake();
+        $this->sendMailChart->handle();
+        $email_check = $this->email;
+        Mail::assertSent(MailUploadImageChart::class, function ($email) use ($email_check) {
+            return $email->hasTo($email_check);
+        });
     }
 
     protected function tearDown(): void
